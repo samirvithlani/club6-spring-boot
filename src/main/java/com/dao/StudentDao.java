@@ -32,4 +32,15 @@ public class StudentDao {
 
 	}
 
+	public StudentBean updateUser(Integer id, StudentBean studentBean) {
+
+		return studentRepository.findById(id).map(stu -> {
+			stu.setName(studentBean.getName());
+			stu.setEmail(studentBean.getEmail());
+			stu.setAge(studentBean.getAge());
+			return studentRepository.save(stu);
+		}).orElse(null);
+
+	}
+
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,14 +50,21 @@ public class StudentController {
 		}
 
 	}
-	
+
 	@DeleteMapping(value = "/student/{id}")
-	public ResponseEntity<?> deleteStudent(@PathVariable("id") int id){
-		
+	public ResponseEntity<?> deleteStudent(@PathVariable("id") int id) {
+
 		studentDao.deleteUser(id);
 		return new ResponseEntity<String>("student deleted", HttpStatus.CREATED);
 
-		
+	}
+
+	@PutMapping(value = "/student/{id}")
+	public ResponseEntity<?> updateStudent(@RequestBody StudentBean studentBean, @PathVariable("id") int id) {
+
+		StudentBean studentBean2 = studentDao.updateUser(id, studentBean);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+
 	}
 
 }
