@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.StudentBean;
 import com.dao.StudentDao;
+import com.util.CustomeResponse;
 
 @RestController
 public class StudentController {
@@ -40,9 +41,13 @@ public class StudentController {
 	public ResponseEntity<?> getAllStudents() {
 
 		List<StudentBean> allStudents = studentDao.getAllStudents();
+		CustomeResponse response = new CustomeResponse();
 		if (allStudents.size() > 0) {
 
-			return new ResponseEntity<List<StudentBean>>(allStudents, HttpStatus.CREATED);
+			response.setData(allStudents);
+			response.setMessage("all students fetched successfully..");
+
+			return new ResponseEntity<CustomeResponse>(response, HttpStatus.CREATED);
 
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,6 +69,15 @@ public class StudentController {
 
 		StudentBean studentBean2 = studentDao.updateUser(id, studentBean);
 		return new ResponseEntity<>(HttpStatus.CREATED);
+
+	}
+
+	@GetMapping(value = "/student/{email}")
+	public ResponseEntity<?> getStudentByEmail(@PathVariable("email") String email) {
+
+		StudentBean studentBean = studentDao.getStudentByEmail(email);
+
+		return new ResponseEntity<StudentBean>(studentBean, HttpStatus.OK);
 
 	}
 

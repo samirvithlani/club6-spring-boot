@@ -42,5 +42,10 @@ public class StudentDao {
 		}).orElse(null);
 
 	}
+	
+	public StudentBean getStudentByEmail(String email) {
+		
+		return studentRepository.findByEmail(email);
+	}
 
 }

@@ -9,5 +9,6 @@ import com.bean.StudentBean;
 public interface  StudentRepository  extends JpaRepository<StudentBean, Integer> {
 
 	
+	StudentBean findByEmail(String email);
 	//custome methods...
 }
