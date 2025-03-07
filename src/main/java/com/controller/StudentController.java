@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bean.RoleBean;
 import com.bean.StudentBean;
 import com.dao.StudentDao;
+import com.dto.StudentRoleDto;
+import com.repository.RoleRepository;
 import com.util.CustomeResponse;
 
 @RestController
@@ -24,8 +27,48 @@ public class StudentController {
 	@Autowired
 	StudentDao studentDao;
 
+	@Autowired
+	RoleRepository roleRepository;
+
+//	@PostMapping(value = "/student")
+//	public ResponseEntity<?> addStudent(@RequestBody StudentBean studentBean) {
+//
+//		//postman -->name,email.age,roleID -->studentDto
+//		//roleRepositor.fineOne --> RoleBean
+//		//studeBran --> setName, -->StudentDto, email,,age,,role -->31...
+//		
+//		//roleId --> database role fetch --> RoleBean
+//		//Stubean --> name,email.,age role --> roleBean
+//		StudentBean savedStudent = studentDao.createStudent(studentBean);
+//		if (savedStudent != null) {
+//
+//			return new ResponseEntity<StudentBean>(studentBean, HttpStatus.CREATED);
+//		}
+//
+//		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//	}
+
 	@PostMapping(value = "/student")
-	public ResponseEntity<?> addStudent(@RequestBody StudentBean studentBean) {
+	public ResponseEntity<?> addStudent(@RequestBody StudentRoleDto studentRoleDto) {
+
+		// postman -->name,email.age,roleID -->studentDto
+		// roleRepositor.fineOne --> RoleBean
+		// studeBran --> setName, -->StudentDto, email,,age,,role -->31...
+
+		// roleId --> database role fetch --> RoleBean
+		// Stubean --> name,email.,age role --> roleBean
+
+		// ''fetcj role
+
+		RoleBean roleBean = roleRepository.findById(studentRoleDto.getRoleId())
+				.orElseThrow(() -> new RuntimeException("no role found."));
+		
+		StudentBean studentBean = new StudentBean();
+		studentBean.setName(studentRoleDto.getName());
+		studentBean.setAge(studentRoleDto.getAge());
+		studentBean.setEmail(studentRoleDto.getEmail());
+		studentBean.setRole(roleBean);
 
 		StudentBean savedStudent = studentDao.createStudent(studentBean);
 		if (savedStudent != null) {
