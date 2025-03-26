@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,7 +26,7 @@ public class StudentBean {
 
 	private int age;
 	
-	@OneToOne(cascade = CascadeType.ALL)//
+	@ManyToOne(cascade = CascadeType.ALL)//
 	@JoinColumn(name = "role_id",referencedColumnName = "id")
 	private RoleBean role;
 
@@ -68,6 +69,8 @@ public class StudentBean {
 	public void setRole(RoleBean role) {
 		this.role = role;
 	}
+	
+	
 	
 	
 
