@@ -3,6 +3,8 @@ package com.bean;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class BookBean {
 
 	@ManyToMany
 	@JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+	@JsonManagedReference
 	private Set<AuthorBean> authors = new HashSet<>();
 
 	public int getId() {
