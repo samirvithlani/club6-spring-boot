@@ -8,4 +8,5 @@ import com.bean.PlayerBean;
 @Repository
 public interface PlayerRepository extends JpaRepository<PlayerBean,Integer>{
 
+	
 }

@@ -26,7 +26,7 @@ public class PlayerBean {
 	
 	@ManyToOne
 	@JoinColumn(name="team_id")
-	@JsonManagedReference
+	@JsonBackReference
 	private TeamBean team;
 
 

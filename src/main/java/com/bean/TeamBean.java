@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,8 +25,9 @@ public class TeamBean {
 
 	private String teamName;
 
-	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonBackReference
+	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	//@JsonManagedReference
+	//@JsonBackReference
 	private List<PlayerBean> players = new ArrayList<>();
 
 	public int getId() {

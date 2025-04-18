@@ -1,10 +1,12 @@
 package com.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +59,16 @@ public class PLayerController {
 			return new ResponseEntity<PlayerBean>(HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 		
+		
+	}
+	
+	
+	@GetMapping(value = "/players")
+	public ResponseEntity<?> getAllPLayers(){
+		
+		
+		List<PlayerBean> players  = pLayerDao.getAllPlayers();
+		return new ResponseEntity<List<PlayerBean>>(players, HttpStatus.OK);
 		
 	}
 	
