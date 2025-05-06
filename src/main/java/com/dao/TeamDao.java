@@ -37,10 +37,16 @@ public class TeamDao {
 	
 	public Page<TeamBean> getAllTeams(int pageNo,int size){
 		
-		
 		//return teamRepository.findAllWithPlayers();
 		Pageable pageable = PageRequest.of(pageNo,size);
 		return teamRepository.findAll(pageable);
+		
+	}
+	
+	public void removeTeam(int teamId) {
+		
+		
+		teamRepository.deleteById(teamId);
 		
 	}
 
